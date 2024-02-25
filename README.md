@@ -47,7 +47,7 @@ Replace `your_live_mongo_uri` and `your_local_mongo_uri` with your actual MongoD
 Run the migration script using the following command:
 
 ```bash
-python mongo_migration.py --live-uri "your_live_mongo_uri" --local-uri "your_local_mongo_uri" --database "your_database_name"
+python mongo_migration.py
 ```
 
 Replace placeholders with your actual MongoDB connection URIs and database name.
