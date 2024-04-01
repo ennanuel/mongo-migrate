@@ -19,7 +19,7 @@ def migrate_data():
         local_uri = os.environ.get('LOCAL_MONGO_URI')
         database = os.environ.get('DATABASE_NAME')
 
-        click.echo(f'Migrating data from {live_uri} to {local_uri} for database {database}')
+        click.echo(f'Copying data from {live_uri} to {local_uri} for database {database}')
 
         # Connect to live and local MongoDB instances
         live_client = MongoClient(live_uri)
@@ -37,18 +37,18 @@ def migrate_data():
                 click.echo(f'Clearing data in {collection_name} in the local database...')
                 local_db[collection_name].delete_many({})
 
-                click.echo(f'Migrating data from {collection_name}...')
+                click.echo(f'Copying data from {collection_name}...')
                 collection_data = live_db[collection_name].find()
 
                 # Insert the data into the local collection
                 local_db[collection_name].insert_many(collection_data)
 
-                click.echo(f'Data migration for {collection_name} complete.')
+                click.echo(f'{collection_name} data copy complete.')
 
             except Exception as e:
-                click.echo(f'Error migrating data for {collection_name}: {str(e)}')
+                click.echo(f'Error copying data for {collection_name}: {str(e)}')
 
-        click.echo('Migration complete.')
+        click.echo('Data copy complete.')
 
     except Exception as e:
         click.echo(f'Error: {str(e)}')
